@@ -1,0 +1,11 @@
+ala = 15
+ma = 13
+kota = 14
+
+if ala >= kota:
+    ala++
+else:
+    print(ala + ma + kota)
+
+while 12 == 13:
+    print('nie lubie kaczek')

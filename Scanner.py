@@ -27,7 +27,7 @@ def is_operator(txt):
 
 
 class Scanner:
-    def __int__(self, text):
+    def __init__(self, text):
         self.text = text
         self.current_index = 0
 
@@ -70,16 +70,19 @@ class Scanner:
             while self.check_next() != '"':
                 next_character = self.get_next()
                 if next_character == '':
-                    raise Exception(f"Unfinished string starting at {start_pos}")
+                    raise Exception(f'Unfinished string starting at {start_pos}')
                 token_val += next_character
+            self.get_next()
             return Token('STRING', start_pos, token_val, self.get_index())
         elif character == "'":
             token_val = ''
             while self.check_next() != "'":
                 next_character = self.get_next()
                 if next_character == '':
-                    raise Exception(f"Unfinished string starting at {start_pos}")
+                    txt = f"Unfinished string starting at {start_pos}"
+                    raise Exception(txt)
                 token_val += next_character
+            self.get_next()
             return Token('STRING', start_pos, token_val, self.get_index())
 
         if not is_operator(character):
@@ -95,7 +98,7 @@ class Scanner:
             last_character += next_character
             if not is_operator(last_character):
                 break
-            self.check_next()
+            self.get_next()
             if last_character in tt.operators_table:
                 recognized_operator = last_character
                 last_valid_position = self.get_index()
@@ -112,6 +115,4 @@ class Scanner:
             token_list.append(token)
         token_list.pop()
         return token_list
-
-
 
